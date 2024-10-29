@@ -20,3 +20,12 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            cpu: '50m'
+            memory: '64Mi'
+          limits:
+            cpu: '250m'
+            memory: '128Mi'
+#1MiB = 1 048 576 octets
+#1000m = 1 CPU (core)
