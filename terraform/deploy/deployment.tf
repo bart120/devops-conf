@@ -26,6 +26,15 @@ resource "kubernetes_deployment" "nginx" {
           image = "nginx:latest"
           ports {
             container_port = 80
+          resources {
+            requests = {
+              cpu    = "50m"
+              memory = "64Mi"
+            }
+            limits = {
+              cpu    = "250m"
+              memory = "128Mi"
+            }
           }
         }
       }
