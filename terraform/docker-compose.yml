@@ -12,6 +12,7 @@ services:
     container_name: mysql-cont
     image: mysql:latest
     environment:
+      # variables avec secret
       - MYSQL_ROOT_PASSWORD=bob
       - MYSQL_DATABASE=testdb
       - MYSQL_USER=toto
@@ -49,4 +50,4 @@ services:
       - database
     deploy:
       mode: replicated
-      replicas: 3 # scal à 10
+      replicas: 3 # scal à 10 + vpa
