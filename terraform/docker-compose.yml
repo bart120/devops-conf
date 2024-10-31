@@ -1,0 +1,52 @@
+version: '3.9'
+
+networks:
+  backend:
+    name: backend-net
+    external: false
+  frontend:
+    name: frontend-net
+
+services:
+  database:
+    container_name: mysql-cont
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=bob
+      - MYSQL_DATABASE=testdb
+      - MYSQL_USER=toto
+      - MYSQL_PASSWORD=bob
+    networks:
+      - backend
+    volumes:
+      - D:\formation\docker\ynov\volumes\data:/var/lib/mysql
+    restart: always
+  phpmyadmin:
+    container_name: admin-cont
+    image: phpmyadmin:latest
+    ports:
+      - 8081:80
+    environment:
+      - PMA_HOST=database
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - database
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - 80:80 #ou 8080:80 si 80 déjà pris
+    environment:
+      - WORDPRESS_DB_HOST=database
+      - WORDPRESS_DB_NAME=testdb
+      - WORDPRESS_DB_USER=toto
+      - WORDPRESS_DB_PASSWORD=bob
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - database
+    deploy:
+      mode: replicated
+      replicas: 3 # scal à 10

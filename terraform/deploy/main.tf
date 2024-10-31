@@ -1,6 +1,7 @@
 #provider
 provider "kubernetes" {
     config_path = "C:\\Users\\vince\\.kube\\config"
+    alias = "test-provider"
 }
 
 # Création d'un namespace
